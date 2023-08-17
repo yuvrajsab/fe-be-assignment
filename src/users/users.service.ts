@@ -1,15 +1,13 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { UtilService } from 'src/helpers/util.service';
-import { Video } from 'src/videos/video.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepo: Repository<User>,
-    @InjectRepository(Video) private readonly videoRepo: Repository<Video>,
     private readonly utilService: UtilService,
   ) {}
 

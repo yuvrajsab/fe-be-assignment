@@ -34,6 +34,7 @@ export class TasksService implements OnModuleInit {
 
     if (TasksService.lastEtag == videos.data.etag) {
       // same data - nothing is changed
+      // caching happening here using etag
       this.logger.debug('skipping job - data was not change');
       return;
     }

@@ -18,4 +18,26 @@ export class VideosService {
       .orIgnore()
       .execute();
   }
+
+  async fetchVideos(limit: number = 10000, offset: number = 0) {
+    return await this.videoRepo
+      .createQueryBuilder()
+      .limit(limit)
+      .offset(offset)
+      .select()
+      .execute();
+  }
+
+  async fetchVideo(id: number) {
+    return await this.videoRepo.findOneBy({
+      id,
+    });
+  }
+
+  async searchByTitle(title: string) {
+    return await this.videoRepo
+      .createQueryBuilder()
+      .where('lower(title) like lower(:name)', { name: `%${title}%` })
+      .getMany();
+  }
 }
