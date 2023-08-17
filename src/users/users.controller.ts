@@ -1,13 +1,26 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  ParseArrayPipe,
+  ParseIntPipe,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { RegisterUserDto } from './register-user.dto';
 import { UsersService } from './users.service';
 import { Request } from 'express';
 import { Public } from 'src/decorators/public.decorator';
 import { IUser } from './user.interface';
+import { VideosService } from 'src/videos/videos.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly videosService: VideosService,
+  ) {}
 
   @Post('/register')
   @Public()
@@ -28,10 +41,13 @@ export class UsersController {
   }
 
   @Post('/watch-later/add')
-  addWatchLater(
-    @Body('videoIds') videoIds: number[],
+  async addWatchLater(
+    @Body('videoIds', new ParseArrayPipe({ items: Number }))
+    videoIds: number[],
     @Req() request: Request & { user: IUser },
   ) {
+    await this.validateWatchLaterApi(videoIds);
+
     this.usersService.attachVideos(request['user'].id, videoIds);
 
     return {
@@ -40,10 +56,12 @@ export class UsersController {
   }
 
   @Post('/watch-later/remove')
-  removeWatchLater(
-    @Body('videoIds') videoIds: number[],
+  async removeWatchLater(
+    @Body('videoIds', new ParseArrayPipe({ items: Number })) videoIds: number[],
     @Req() request: Request & { user: IUser },
   ) {
+    await this.validateWatchLaterApi(videoIds);
+
     this.usersService.detachVideos(request['user'].id, videoIds);
 
     return {
@@ -54,5 +72,13 @@ export class UsersController {
   @Get('/watch-later/list')
   viewWatchLater(@Req() request: Request & { user: IUser }) {
     return this.usersService.getVideos(request['user'].id);
+  }
+
+  async validateWatchLaterApi(videoIds: number[]) {
+    const ids = await this.videosService.validateIdExists(videoIds);
+    const invalidIds = videoIds.filter((x) => !ids.includes(x));
+    if (invalidIds.length > 0) {
+      throw new BadRequestException(`Ids ${invalidIds} are invalid`);
+    }
   }
 }

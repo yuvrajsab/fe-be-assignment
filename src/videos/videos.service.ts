@@ -40,4 +40,14 @@ export class VideosService {
       .where('lower(title) like lower(:name)', { name: `%${title}%` })
       .getMany();
   }
+
+  async validateIdExists(ids: number[]) {
+    const res: { id: number }[] = await this.videoRepo
+      .createQueryBuilder()
+      .whereInIds(ids)
+      .select('id')
+      .execute();
+
+    return res.map((x) => x.id);
+  }
 }
