@@ -4,21 +4,14 @@ Assignment for jumbo FE-BE.
 
 ## TODOs:
 
-[x] Set up a new NestJS application using the Nest CLI.
-
-[x] Create a PostgreSQL database schema using TypeORM to store video data and user data.
-
-[x] Implement a cron job that fetches the latest videos from the YouTube API every 2 hours.
-
-[x] Implement user authentication using NestJS JWT utilities module.
-
-[ ] Implement "Watch Later" functionality for authenticated users.
-
-[ ] Protect the API endpoints related to video addition and deletion (Watch Later) so that only authenticated users can access them.
-
-[ ] Create API endpoints to interact with the video data.
-
-[ ]Implement caching to reduce the load on the YouTube API during frequent requests. (OPTIONAL)
+- [x] Set up a new NestJS application using the Nest CLI.
+- [x] Create a PostgreSQL database schema using TypeORM to store video data and user data.
+- [x] Implement a cron job that fetches the latest videos from the YouTube API every 2 hours.
+- [x] Implement user authentication using NestJS JWT utilities module.
+- [ ] Implement "Watch Later" functionality for authenticated users.
+- [ ] Protect the API endpoints related to video addition and deletion (Watch Later) so that only authenticated users can access them.
+- [ ] Create API endpoints to interact with the video data.
+- [ ]Implement caching to reduce the load on the YouTube API during frequent requests. (OPTIONAL)
 
 ## Setup
 
