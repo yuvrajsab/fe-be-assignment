@@ -4,7 +4,6 @@ import {
   Controller,
   Get,
   ParseArrayPipe,
-  ParseIntPipe,
   Post,
   Req,
 } from '@nestjs/common';
