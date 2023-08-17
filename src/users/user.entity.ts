@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Video } from 'src/videos/video.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -16,4 +23,8 @@ export class User {
 
   @Column({ nullable: true })
   address?: string;
+
+  @ManyToMany(() => Video)
+  @JoinTable()
+  videos!: Video[];
 }
