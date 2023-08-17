@@ -3,6 +3,7 @@
 Assignment for jumbo FE-BE.
 
 #### Test Credentials
+
 ```
 email: yuvraj@example.com
 password: password
@@ -20,8 +21,8 @@ FYI: login API endpoint is `/login`.
 - [x] Implement user authentication using NestJS JWT utilities module.
 - [x] Implement "Watch Later" functionality for authenticated users.
 - [x] Protect the API endpoints related to video addition and deletion (Watch Later) so that only authenticated users can access them.
-- [ ] Create API endpoints to interact with the video data.
-- [ ]Implement caching to reduce the load on the YouTube API during frequent requests. (OPTIONAL)
+- [x] Create API endpoints to interact with the video data.
+- [x] Implement caching to reduce the load on the YouTube API during frequent requests. (OPTIONAL)
 
 ## Setup
 
