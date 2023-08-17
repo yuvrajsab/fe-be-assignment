@@ -4,6 +4,7 @@ import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
 import { YoutubeService } from './videos/youtube.service';
 import { VideosService } from './videos/videos.service';
+import { IVideo } from './videos/video.interface';
 
 @Injectable()
 export class TasksService implements OnModuleInit {
@@ -42,15 +43,21 @@ export class TasksService implements OnModuleInit {
       return;
     }
 
+    const payload: IVideo[] = [];
+
     for (const item of items) {
-      await this.videoService.storeVideo(
-        item.id!,
-        item.snippet!.title!,
-        item.snippet!.description!,
-        item.snippet!.publishedAt!,
-        item.snippet!.thumbnails!.default!.url!,
-        `https://www.youtube.com/watch?v=${item.id}`,
-      );
+      payload.push({
+        youtubeId: item.id!,
+        title: item.snippet!.title!,
+        description: item.snippet!.description!,
+        publishedAt: item.snippet!.publishedAt!,
+        thumbnailUrl: item.snippet!.thumbnails!.default!.url!,
+        videoUrl: `https://www.youtube.com/watch?v=${item.id}`,
+      });
+    }
+
+    if (payload) {
+      await this.videoService.storeVideos(payload);
     }
 
     TasksService.lastEtag = videos.data.etag;
