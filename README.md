@@ -2,6 +2,16 @@
 
 Assignment for jumbo FE-BE.
 
+#### Test Credentials
+```
+email: yuvraj@example.com
+password: password
+```
+
+Login with these credentials to get access token and then you'd need to pass that access token in `Authorization` header like `Bearer <token>` in order to access APIs.
+
+FYI: login API endpoint is `/login`.
+
 ## TODOs:
 
 - [x] Set up a new NestJS application using the Nest CLI.
