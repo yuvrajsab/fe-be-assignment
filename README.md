@@ -1,73 +1,87 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# FE BE Assignment
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Assignment for jumbo FE-BE.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## TODOs:
 
-## Description
+[x] Set up a new NestJS application using the Nest CLI.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[x] Create a PostgreSQL database schema using TypeORM to store video data and user data.
 
-## Installation
+[x] Implement a cron job that fetches the latest videos from the YouTube API every 2 hours.
 
-```bash
-$ yarn install
+[x] Implement user authentication using NestJS JWT utilities module.
+
+[ ] Implement "Watch Later" functionality for authenticated users.
+
+[ ] Protect the API endpoints related to video addition and deletion (Watch Later) so that only authenticated users can access them.
+
+[ ] Create API endpoints to interact with the video data.
+
+[ ]Implement caching to reduce the load on the YouTube API during frequent requests. (OPTIONAL)
+
+## Setup
+
+- Clone the repo.
+- Create `.env` file. A `sample.env` file has been added for reference.
+
+### Development
+
+To setup locally on you system you'd need few dependencies:
+
+- Nodejs 16
+- Yarn 1.22
+- Postgres 14
+
+#### Steps
+
+1. Install project dependencies.
+
+```sh
+yarn install
 ```
 
-## Running the app
+2. Create database in postgres.
 
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+```sql
+CREATE DATABASE <dbname>;
 ```
 
-## Test
+3. Update `.env` file with postgres db name that you've just setup.
 
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+```env
+...
+POSTGRES_DB=<dbname>
 ```
 
-## Support
+4. You'd need `youtube` API key. You can refer to this website in order to know how to get this key. https://developers.google.com/youtube/v3/getting-started. After you get this key update that in the `.env` file.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```env
+YOUTUBE_API_KEY=<key>
+```
 
-## Stay in touch
+5. Run the app.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```sh
+yarn start
+```
 
-## License
+You can access the app by going to `http://localhost:3000` in your browser.
 
-Nest is [MIT licensed](LICENSE).
+### Production
+
+To deploy on production we have `docker-compose.prod.yml` file, using this you can easily deploy the app with just a single command.
+
+You'd need `docker` and `docker-compose` installed on you system. You can download both of those from here https://www.docker.com/.
+
+#### Steps:
+
+1. Update `.env` file according to the containers environment.
+
+2. Start the container
+
+```sh
+docker-compose up -d
+```
+
+3. Your app should be available at `http://localhost:3000`. you can access to it by visiting this link in your browser.
